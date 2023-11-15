@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ../project/:/var/www
+      - ../project/_docker/nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "8001:80"
+    depends_on:
+      - app
+    container_name: project_nginx
+
+  app:
+    build:
+      context: .
+      dockerfile: ../project/_docker/app/Dockerfile
+    volumes:
+      - ../project/:/var/www
+    depends_on:
+      - db
+    container_name: project_app
+  db:
+    image: postgres:latest
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    container_name: project_db
+volumes:
+  pgdata: { }

@@ -26,5 +26,4 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 USER www
 EXPOSE 9000
-CMD php artisan migrate
 WORKDIR /var/www

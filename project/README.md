@@ -1,26 +1,63 @@
-# Lumen PHP Framework
+# Как поднять контейнер
+В папке ./deploy запустить при помощи команды: docker compose up -d , а для миграции: docker exec -it project_app php artisan migrate --seed. Также необходимо задать JWT_SECRET в .env.
+> **Важно:** В Postman запросах Header Authorization надо задавать в ручную для каждого запроса. Middleware auth и middleware admin для разный типов пользователей.
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/lumen)](https://packagist.org/packages/laravel/lumen-framework)
-
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
-
-> **Note:** In the years since releasing Lumen, PHP has made a variety of wonderful performance improvements. For this reason, along with the availability of [Laravel Octane](https://laravel.com/docs/octane), we no longer recommend that you begin new projects with Lumen. Instead, we recommend always beginning new projects with [Laravel](https://laravel.com).
-
-## Official Documentation
-
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
-
-## Contributing
-
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Задача
+1. Развернуть docker контейнер с проектом на Lumen и контейнер для БД с СУБД PostgreSQL.
+# Ответ
+ Выполнена: файл docker-compose находиться по пути ./deploy.
+# Задача
+2. Составить README.md, включающий в себя:
+   <br/>
+   - необходимые шаги для разворота проекта;
+   - необходимые конфигурации проекта.
+# Ответ
+Выполнена!.
+# Задача
+3. Реализовать схему БД c помощью Laravel миграций.
+# Ответ
+Реализован.
+# Задача
+4. Создать Eloquent модели для представленных в БД сущностей.
+# Ответ
+Создан.
+# Задача
+5. Заполнить таблицы users и lottery_games, используя seeder классы и factory классы.
+# Ответ
+Заполнен.
+> **Важно:** Также был создан администратор<br/> Email: asror.96@examplemail.com <br/>Password: jonik1996
+# Задача
+6. Реализовать следующий список API (ответ должен быть в формате json).
+# Ответ
+Реализован.
+> **Важно:** Не знаю почему, но не смог получить Query string для подзадачи <<Получение списка всех матчей по id лотерейной игры>> с помощью get(), input(),getQueryString(),query()... Пришлось хардкодить.
+# Задача
+7. Реализовать JWT авторизацию используя библиотеку [JWT Firebase](https://github.com/firebase/php-jwt/). JWT токен передается в Headers - Authorization: JWT-auth каждого запроса.
+# Ответ
+Реализован. Но раньше я использовал другую библиотеку, а именно [Tymon JWT](https://github.com/tymondesigns/jwt-auth). Также из-за временных рамок и отсутствие многих функций в Lumen не вольностью реализован функционал. В частности не смог зарегистрировать пользователя в системе, то есть auth()->user() не выдает что за пользователь. Хочу отметить что в интернете очень мало информации о том как именно нужно работать с этой библиотекой(скорее всего я не нашел).
+> **Важно:** Не понятно было зачем вставлять как обычный Header, а не как Bearer token. Но так как в задании было сказано как Header middleware "ловит" token как простой заголовок.
+# Задача
+8. Реализовать валидацию клиентских запросов:
+# Ответ
+Реализован.
+# Задача
+9. С помощью Laravel Event/Listeners реализовать логику:<br/>
+   - Один пользователь не может дважды записаться на один и тот же матч.<br/>
+   - На матч может записаться не больше требуемого в игре количества участников;<br/>
+   - При завершении матча победитель должен определяться случайным образом;<br/>
+   - Победителю матча должно зачисляться указанное в игре число очков за победу.<br/>
+# Ответ
+Реализован. Первый две подзадачи реализованы с помощью CustomEvent и CustomListener. А остальные две подзадачи с помощью EndMatchEvent и EndMatchListener.
+> **Важно:** Первой подзадачи реализован так что если он уже зарегистрирован в матч ему всё равно придет информация об его регистрации(но он не будет заново регистрироваться).
+# Задача
+11. С помощью отношений расширить следующие запросы:<br/>
+    - GET /api/lottery_games - добавить к каждой игре вывод всех ее матчей, отсортированных по дате и времени начала;<br/>
+    - GET /api/users - добавить к каждому пользователю вывод всех его выигранных матчей.<br/>
+# Ответ
+Реализован.
+# Задача
+12. Подготовить Postman коллекцию с примерами запросов реализованных в п.6 API. <br/>
+Экспортировать коллекцию в json файл.<br/>
+# Ответ
+Реализован.
+> **Важно:** Если это проверяет разраб хотелось бы попросить ссылку на статьи про [JWT Firebase](https://github.com/firebase/php-jwt/), а также ссылку на то как получить Query string в Lumen запрос(запрос с ?), так как в Laravel есть много способов получить эти запросы.

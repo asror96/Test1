@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Lottery_game;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class UserFactory extends Factory
+class Lottery_gameFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Lottery_game::class;
 
     /**
      * Define the model's default state.
@@ -22,10 +22,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
-            'email' => $this->faker->unique()->safeEmail,
-            'password'=>'$2y$12$FwH.H7ldFxTga/XDCMkLe.lsaRgTcLlsMuJ04L7s/hTtZoGn.2tsW'
+            'name' => $this->faker->word,
+            'gamer_count'=>(rand(1,10))*10,
+            'reward_points'=>rand(1,10)
         ];
     }
 }

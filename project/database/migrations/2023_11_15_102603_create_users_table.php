@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->boolean('is_admin')->default(false);
             $table->integer('point')->default(0);
+            $table->string('password');
+            $table->string('remember_token',200)->nullable();
             $table->timestamps();
         });
     }

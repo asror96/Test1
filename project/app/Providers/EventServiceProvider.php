@@ -15,6 +15,12 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\ExampleEvent::class => [
             \App\Listeners\ExampleListener::class,
         ],
+        \App\Events\CustomEvent::class => [
+            \App\Listeners\CustomListener::class,
+        ],
+        \App\Events\EndMatchEvent::class => [
+            \App\Listeners\EndMatchListener::class,
+        ],
     ];
 
     /**
